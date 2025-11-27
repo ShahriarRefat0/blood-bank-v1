@@ -22,7 +22,7 @@ export default function AvailableDonors() {
     <div className="p-5 w-11/12 mx-auto my-8">
       <div>
         <h1 className="text-3xl font-bold mb-5 text-center text-red-500">
-          Available Donors
+          Available Donors.
         </h1>
       </div>
 
