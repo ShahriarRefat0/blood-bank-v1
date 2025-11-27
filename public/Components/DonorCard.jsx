@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -5,7 +7,6 @@ import { GoPerson } from "react-icons/go";
 import { MdBloodtype, MdLocationOn } from "react-icons/md";
 
 export default function DonorCard({ donor }) {
-
   return (
     <Link href={`/dashboard/donors/${donor._id}`}>
       <div className="w-full max-w-md bg-white shadow-lg hover:shadow-xl rounded-xl p-4 sm:p-6 flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 border-2 border-red-500 transition-all duration-300 hover:border-red-600 hover:-translate-y-1 cursor-pointer">

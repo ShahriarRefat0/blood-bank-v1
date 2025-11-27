@@ -1,3 +1,7 @@
+
+export const dynamic = "force-dynamic";
+export const dynamicParams = true;
+
 import clientPromise from "@/lib/mongoDb";
 import { ObjectId } from "mongodb";
 import Image from "next/image";

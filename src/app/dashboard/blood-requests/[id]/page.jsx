@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { ObjectId } from "mongodb";
 import clientPromise from "@/lib/mongoDb";
 import { connectDB } from "@/lib/mongoDb";
@@ -7,16 +8,15 @@ import { FaPhoneAlt, FaHeart, FaExclamationCircle } from "react-icons/fa";
 import { FaUser, FaCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
 
 export default async function RequestDetails({ params }) {
-  const { id } =  params;
+  const { id } = params;
 
-    const client = await clientPromise;
-    const db = client.db("blood-bankDB");
-    const requests = db.collection("bloodRequests");
+  const client = await clientPromise;
+  const db = client.db("blood-bankDB");
+  const requests = db.collection("bloodRequests");
 
-    const req = await requests.findOne({ _id: new ObjectId(id) });
+  const req = await requests.findOne({ _id: new ObjectId(id) });
 
-  console.log(req)
-
+  console.log(req);
 
   return (
     <div className="min-h-screen bg-red-50 flex justify-center py-10 px-4">

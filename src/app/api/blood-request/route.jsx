@@ -1,4 +1,6 @@
+
 import clientPromise from "@/lib/mongoDb";
+export const dynamic = "force-dynamic";
 
 export async function POST(req) {
   try {
@@ -36,5 +38,3 @@ export async function GET(req) {
     return Response.json({ success: false, e: e.message }, { status: 500 });
   }
 }
-
-

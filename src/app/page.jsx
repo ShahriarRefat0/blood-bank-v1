@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import CoverageMap from "../../public/Components/CoverageMap";
 import HeroSection from "../../public/Components/HeroSection";

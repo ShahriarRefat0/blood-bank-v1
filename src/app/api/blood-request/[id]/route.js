@@ -1,9 +1,11 @@
+export const dynamic = "force-dynamic";
+
 import clientPromise from "@/lib/mongoDb";
 import { ObjectId } from "mongodb";
 
 export async function DELETE(req, { params }) {
   try {
-    const { id } =  params;
+    const { id } = params;
 
     const client = await clientPromise;
     const db = client.db("blood-bankDB");

@@ -28,13 +28,12 @@ export default function RootLayout({ children }) {
     <html lang="en" data-theme="light">
       <body>
         <QueryProvider>
-          
-        <AuthProvider>
-        <Navbar></Navbar>
-        {children}
-        <Footer></Footer>
-        </AuthProvider>
-       </QueryProvider>
+          <AuthProvider>
+            <Navbar></Navbar>
+            {children}
+            <Footer></Footer>
+          </AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   );

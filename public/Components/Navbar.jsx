@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { GoPersonFill } from "react-icons/go";
 import { TbBoxModel } from "react-icons/tb";
