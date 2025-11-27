@@ -7,7 +7,7 @@ import { FaPhoneAlt, FaHeart, FaExclamationCircle } from "react-icons/fa";
 import { FaUser, FaCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
 
 export default async function RequestDetails({ params }) {
-  const { id } = await params;
+  const { id } =  params;
 
     const client = await clientPromise;
     const db = client.db("blood-bankDB");

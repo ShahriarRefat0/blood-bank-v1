@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
@@ -9,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 export default function AddBloodRequest() {
   const [error, setError] = useState("");
-  const router = useRouter()
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -43,11 +41,11 @@ export default function AddBloodRequest() {
         data: formData,
       });
       if (response.data.success) {
-        alert('Blood request submitted successfully!')
-        router.push('/');
-    }
+        alert("Blood request submitted successfully!");
+        router.push("/");
+      }
     } catch (e) {
-      console.log("error submite boold reque", e)
+      console.log("error submite boold reque", e);
     }
   };
 

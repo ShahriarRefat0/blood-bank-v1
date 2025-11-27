@@ -1,22 +1,17 @@
-"use client";
-
 import { useAuth } from "@/context/AuthContext";
 import { useForm, useWatch } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 export default function UpdateProfile() {
-  const { user } = useAuth() || []
-  
+  const { user } = useAuth() || [];
 
-  
   const {
     register,
     handleSubmit,
     control,
     formState: { errors },
   } = useForm();
-
 
   const { data: areas = [] } = useQuery({
     queryKey: ["areas"],
@@ -25,7 +20,6 @@ export default function UpdateProfile() {
       return res.json();
     },
   });
-
 
   const divisions = [...new Set(areas.map((a) => a.region))];
   const userDivision = useWatch({ control, name: "userDivision" });
@@ -39,20 +33,19 @@ export default function UpdateProfile() {
     areas.find((a) => a.region === userDivision && a.district === userDistrict)
       ?.covered_area || [];
 
-
   const handleUpdate = async (data) => {
-  console.log(data)
-  try {
-    const response = await axios.post("/api/user", { data });
+    console.log(data);
+    try {
+      const response = await axios.post("/api/user", { data });
 
-    if (response.data.success) {
-      alert("Profile updated!");
-      console.log("dataUpdate",response.data)
+      if (response.data.success) {
+        alert("Profile updated!");
+        console.log("dataUpdate", response.data);
+      }
+    } catch (e) {
+      console.log("Error:", e);
     }
-  } catch (e) {
-    console.log("Error:", e);
-  }
-};
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-red-100 to-red-50 flex items-center justify-center px-5 py-10">

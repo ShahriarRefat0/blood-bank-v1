@@ -1,4 +1,3 @@
-"use client";
 import { useAuth } from "@/context/AuthContext";
 import axios from "axios";
 import Image from "next/image";
@@ -6,26 +5,24 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { GoPerson } from "react-icons/go";
 
-export default  function  ProfilePage() {
+export default function ProfilePage() {
   const { user } = useAuth();
-  const [userInfo, setUserInfo] = useState(null)
-  
+  const [userInfo, setUserInfo] = useState(null);
+
   useEffect(() => {
-    if (!user?.email) return
+    if (!user?.email) return;
     const loadUser = async () => {
       try {
-        const res = await fetch(`/api/user?email=${user?.email}`)
-      const data = await res.json();
-        setUserInfo(data.user)
+        const res = await fetch(`/api/user?email=${user?.email}`);
+        const data = await res.json();
+        setUserInfo(data.user);
       } catch (e) {
-        console.log(e)
+        console.log(e);
       }
-    }
+    };
     loadUser();
-  }, [user])
+  }, [user]);
 
- 
-  
   return (
     <div className="min-h-screen bg-red-50 flex justify-center items-center px-4">
       <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full border border-red-200">
@@ -89,11 +86,10 @@ export default  function  ProfilePage() {
             <span className="font-semibold">Date of birth:</span>{" "}
             {userInfo?.dob || "Not Added"}
           </p>
-
         </div>
 
         {/* BUTTON */}
-        <Link href="/profile/update-profile" >
+        <Link href="/profile/update-profile">
           <button className="btn bg-red-600 hover:bg-red-700 mt-5 text-white w-full">
             Update Profile
           </button>

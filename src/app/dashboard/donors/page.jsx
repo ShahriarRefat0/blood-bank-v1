@@ -1,18 +1,15 @@
-"use client";
-import React from 'react'
+import React from "react";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import DonorCard from '../../../../public/Components/DonorCard';
-
-
+import DonorCard from "../../../../public/Components/DonorCard";
 
 export default function AvailableDonors() {
- const [donors, setDonors] = useState([]);
+  const [donors, setDonors] = useState([]);
 
   useEffect(() => {
     axios.get("/api/donor").then((res) => {
-        console.log("API Response:", res.data);
+      console.log("API Response:", res.data);
       setDonors(res.data.donors);
     });
   }, []);
@@ -27,7 +24,7 @@ export default function AvailableDonors() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {donors.map((donor , i) => (
+        {donors.map((donor, i) => (
           <DonorCard key={i} donor={donor}></DonorCard>
         ))}
       </div>

@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { GoPersonFill } from "react-icons/go";
 import { TbBoxModel } from "react-icons/tb";
@@ -10,23 +8,44 @@ import { useAuth } from "@/context/AuthContext";
 import Image from "next/image";
 import { GoPerson } from "react-icons/go";
 import { useRouter } from "next/navigation";
-
-
+import Swal from "sweetalert2";
 
 export default function Navbar() {
   const { user, signOutUser } = useAuth();
-  const router =  useRouter()
+  const router = useRouter();
 
   const handleLogOut = () => {
-    signOutUser().then(res =>{
-    console.log(res)
-      router.push('/')
-    }).catch(e => {
-      console.log(e.message);
-      
-    })
-  }
-  
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will be logged out of your account.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, Logout",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Perform logout
+        signOutUser()
+          .then(() => {
+            Swal.fire({
+              title: "Logged Out!",
+              text: "You have been logged out successfully.",
+              icon: "success",
+              timer: 1500,
+              showConfirmButton: false,
+            });
+
+            router.push("/");
+          })
+          .catch((e) => {
+            Swal.fire("Error", e.message, "error");
+          });
+      }
+    });
+  };
+
   const links = (
     <>
       <li>
@@ -138,9 +157,9 @@ export default function Navbar() {
                 </li>
 
                 <li>
-                  <Link href="/downloads">
+                  <Link href="/dashboard/manage-requests">
                     <MdManageAccounts />
-                    Manage Donor Info
+                    Manage Request
                   </Link>
                 </li>
 

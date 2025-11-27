@@ -1,4 +1,3 @@
-//import { User, Phone, Calendar, MapPin, FileText, Droplet } from "lucide-react";
 import clientPromise from "@/lib/mongoDb";
 import { ObjectId } from "mongodb";
 import Image from "next/image";
@@ -13,7 +12,7 @@ import {
 } from "react-icons/md";
 
 export default async function DonorDetails({ params }) {
-  const { id } = await params;
+  const { id } =  params;
 
   // Fetch donor from DB
   const client = await clientPromise;

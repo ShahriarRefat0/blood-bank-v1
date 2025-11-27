@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
@@ -22,21 +20,51 @@ export default function LoginPage() {
     try {
       const res = await signInWithEmail(data.email, data.password);
       console.log("login", res);
+
+      Swal.fire({
+        title: "Login Successful!",
+        text: "Welcome back!",
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
       router.push("/");
     } catch (e) {
       console.log("login error", e.message);
-      setError("Invalid email or password");
+
+      Swal.fire({
+        title: "Login Failed",
+        text: "Invalid email or password",
+        icon: "error",
+        confirmButtonColor: "#d33",
+      });
     }
   };
 
   const handleGoogle = async () => {
     try {
       const res = await signInWithGoogle();
-      console.log(res.user);
+      console.log("Google login", res.user);
+
+      Swal.fire({
+        title: "Login Successful!",
+        text: "Logged in with Google",
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false,
+      });
 
       router.push("/");
     } catch (e) {
       console.log(e.message);
+
+      Swal.fire({
+        title: "Google Login Failed",
+        text: e.message,
+        icon: "error",
+        confirmButtonColor: "#d33",
+      });
     }
   };
 

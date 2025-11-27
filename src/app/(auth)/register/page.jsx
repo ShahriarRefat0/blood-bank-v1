@@ -1,47 +1,44 @@
-"use client";
-
 import { useNavigate } from "react";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
-import { useAuth } from "@/context/AuthContext"; 
+import { useAuth } from "@/context/AuthContext";
 import { useForm } from "react-hook-form";
 import { redirect, useRouter } from "next/navigation";
 
-
 export default function RegisterPage() {
-  const router = useRouter()
+  const router = useRouter();
   const { user, signInWithGoogle, createUser, updateUser } = useAuth();
-  const { register,
-    handleSubmit, formState: {errors}, } = useForm()  
-  
-   const handleGoogle = () => {
-     signInWithGoogle()
-       .then((res) => {
-         //console.log(res.user);
-         router.push('/')
-       })
-       .catch((e) => {
-         console.log(e.message);
-       });
-  };
-  
-  const handleCreateUer = async (data) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
+  const handleGoogle = () => {
+    signInWithGoogle()
+      .then((res) => {
+        //console.log(res.user);
+        router.push("/");
+      })
+      .catch((e) => {
+        console.log(e.message);
+      });
+  };
+
+  const handleCreateUer = async (data) => {
     try {
-      const res = await createUser(data.email, data.password)
+      const res = await createUser(data.email, data.password);
       await updateUser({
         displayName: data.name,
         photoURL: data.photoURL,
-        
-      })
+      });
       //console.log('user created:', res.user)
-      router.push('/')
+      router.push("/");
     } catch (e) {
-      console.log('error', e.message)
+      console.log("error", e.message);
     }
-  }
+  };
 
-  
   return (
     <div className="min-h-screen bg-linier-to-b from-red-100 to-red-50 flex items-center justify-center px-5 py-10">
       <div className="w-full max-w-lg bg-white shadow-xl rounded-2xl p-8 border border-red-200">
