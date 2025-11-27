@@ -4,7 +4,7 @@ export const dynamic = "force-dynamic";
 
 export async function POST(req) {
   try {
-    const { data } = await req.json();
+    const data  = await req.json();
 
     const client = await clientPromise;
     const db = client.db("blood-bankDB");
