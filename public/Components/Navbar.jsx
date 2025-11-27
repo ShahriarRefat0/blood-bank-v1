@@ -9,12 +9,24 @@ import { MdManageAccounts } from "react-icons/md";
 import { useAuth } from "@/context/AuthContext";
 import Image from "next/image";
 import { GoPerson } from "react-icons/go";
+import { useRouter } from "next/navigation";
 
 
 
 export default function Navbar() {
-  const { user } = useAuth()
-  console.log(user)
+  const { user, signOutUser } = useAuth();
+  const router =  useRouter()
+
+  const handleLogOut = () => {
+    signOutUser().then(res =>{
+    console.log(res)
+      router.push('/')
+    }).catch(e => {
+      console.log(e.message);
+      
+    })
+  }
+  
   const links = (
     <>
       <li>
@@ -24,17 +36,17 @@ export default function Navbar() {
         <Link href="/about">About</Link>
       </li>
       <li>
-        <Link href="/search-donors">Search Donors</Link>
+        <Link href="/dashboard/donors">Donors</Link>
       </li>
       <li>
-        <Link href="/add-blood-request">Add Request</Link>
+        <Link href="/dashboard/blood-requests">Blood Requests</Link>
       </li>
     </>
   );
 
   return (
     <div className="bg-[#EB2C29] shadow-md">
-      <div className="navbar mx-auto w-11/12  text-white font-semibold px-4 ">
+      <div className="navbar mx-auto w-11/12  text-white font-semibold ">
         {/* LEFT (Logo + Mobile Menu) */}
         <div className="navbar-start">
           {/* Mobile Menu */}
@@ -79,7 +91,7 @@ export default function Navbar() {
         <div className="navbar-end flex items-center gap-4">
           {/* Profile Dropdown */}
           {user ? (
-            <div className="dropdown dropdown-end hidden lg:block">
+            <div className="dropdown dropdown-end  ">
               <div
                 tabIndex={0}
                 role="button"
@@ -96,10 +108,9 @@ export default function Navbar() {
                       unoptimized
                     />
                   ) : (
-                  
-                      <div className="flex items-center justify-center">
-                  <GoPerson color="red" size={30} />
-                  </div>
+                    <div className="flex items-center justify-center">
+                      <GoPerson color="red" size={30} />
+                    </div>
                   )}
                 </div>
               </div>
@@ -121,7 +132,7 @@ export default function Navbar() {
                 </li>
 
                 <li>
-                  <Link href="/add-donor">
+                  <Link href="/dashboard/add-donor">
                     <IoPersonAddSharp /> Add Donor
                   </Link>
                 </li>
@@ -134,7 +145,10 @@ export default function Navbar() {
                 </li>
 
                 <li>
-                  <button className="btn btn-xs bg-red-500 text-white w-full mt-2">
+                  <button
+                    onClick={handleLogOut}
+                    className="btn btn-xs bg-red-500 text-white w-full mt-2"
+                  >
                     <IoLogOut /> Logout
                   </button>
                 </li>

@@ -10,7 +10,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
-
+import Cookies from "js-cookie";
 import { auth } from "@/lib/firebase";
 
 export const AuthContext = createContext(null);
@@ -39,21 +39,36 @@ export default function AuthProvider({ children }) {
   };
 
   // UPDATE USER PROFILE
-  const updateUser = (profileData) => {
+  const updateUser = ({ photoURL, displayName }) => {
     setLoading(true);
-    return updateProfile(auth.currentUser, profileData);
+    return updateProfile(auth.currentUser, { photoURL, displayName });
   };
 
-  // LOGOUT USER
+  // LOGOUT
   const signOutUser = () => {
     setLoading(true);
+    Cookies.remove("token");
     return signOut(auth);
   };
 
   // TRACK LOGIN STATUS
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        const token = await currentUser.getIdToken();
+
+        // Save token in cookie
+        Cookies.set("token", token, {
+          expires: 7,
+          secure: true,
+        });
+
+        setUser(currentUser);
+      } else {
+        Cookies.remove("token");
+        setUser(null);
+      }
+
       setLoading(false);
     });
 
@@ -75,5 +90,4 @@ export default function AuthProvider({ children }) {
   );
 }
 
-// CUSTOM HOOK
 export const useAuth = () => useContext(AuthContext);

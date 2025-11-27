@@ -4,24 +4,40 @@ import { useState } from "react";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { useAuth } from "@/context/AuthContext";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [error, setError] = useState("");
-  const { signInWithGoogle } = useAuth();
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const { signInWithGoogle, signInWithEmail } = useAuth();
 
-console.log('login with pass')
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const handleLogin = async (data) => {
+    try {
+      const res = await signInWithEmail(data.email, data.password);
+      console.log("login", res);
+      router.push("/");
+    } catch (e) {
+      console.log("login error", e.message);
+      setError("Invalid email or password");
+    }
   };
 
-  const handleGoogle = () => {
-        signInWithGoogle()
-      .then((res) => {
-        console.log(res.user);
-      })
-      .catch((e) => {
-        console.log(e.message);
-      });
+  const handleGoogle = async () => {
+    try {
+      const res = await signInWithGoogle();
+      console.log(res.user);
+
+      router.push("/");
+    } catch (e) {
+      console.log(e.message);
+    }
   };
 
   return (
@@ -36,31 +52,50 @@ console.log('login with pass')
         </p>
 
         {/* FORM */}
-        <form onSubmit={handleLogin} className="space-y-4">
+        <form onSubmit={handleSubmit(handleLogin)} className="space-y-4">
           {error && (
             <p className="text-red-600 text-center font-semibold">{error}</p>
           )}
 
+          {/* Email */}
           <div>
-            <label className="font-semibold">Email</label>
+            <label className="font-semibold text-sm">Email</label>
             <input
               type="email"
-              name="email"
-              className="input input-bordered w-full mt-1"
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^\S+@\S+\.\S+$/,
+                  message: "Valid email required",
+                },
+              })}
               placeholder="example@email.com"
-              required
+              className="input input-bordered w-full mt-1 focus:outline-red-500"
             />
+            {errors.email && (
+              <p className="text-red-500 text-xs mt-1">
+                {errors.email.message}
+              </p>
+            )}
           </div>
 
+          {/* Password */}
           <div>
-            <label className="font-semibold">Password</label>
+            <label className="font-semibold text-sm">Password</label>
             <input
               type="password"
-              name="password"
-              className="input input-bordered w-full mt-1"
+              {...register("password", {
+                required: "Password is required",
+                minLength: { value: 6, message: "Minimum 6 characters" },
+              })}
               placeholder="Enter password"
-              required
+              className="input input-bordered w-full mt-1 focus:outline-red-500"
             />
+            {errors.password && (
+              <p className="text-red-500 text-xs mt-1">
+                {errors.password.message}
+              </p>
+            )}
           </div>
 
           <button
@@ -84,7 +119,7 @@ console.log('login with pass')
           className="btn btn-outline w-full border-red-400 text-red-600"
         >
           <FcGoogle />
-           Continue with Google
+          Continue with Google
         </button>
 
         {/* FOOTER */}
