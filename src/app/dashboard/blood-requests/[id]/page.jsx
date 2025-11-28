@@ -20,7 +20,7 @@ export default async function RequestDetails({ params }) {
   // console.log(req);
 
   return (
-    <div className="min-h-screen bg-red-50 flex justify-center py-10 px-4">
+    <div className=" bg-red-50 flex justify-center py-10 px-4">
       <div className="w-full max-w-3xl bg-white shadow-xl rounded-2xl overflow-hidden border border-red-200">
         {/* TOP BANNER */}
         <div className="bg-gradient-to-r from-red-600 to-red-500 text-white p-6 rounded-b-3xl">

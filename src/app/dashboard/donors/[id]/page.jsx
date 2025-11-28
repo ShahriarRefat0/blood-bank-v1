@@ -34,11 +34,11 @@ export default async function DonorDetails({ params }) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-red-50 to-pink-50 flex items-center justify-center py-6 px-4 sm:py-12">
+    <div className="bg-gradient-to-br from-rose-50 via-red-50 to-pink-50 flex items-center justify-center py-6 px-4 sm:py-12">
       <div className="w-full max-w-4xl">
-        {/* Main Card */}
+ 
         <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
-          {/* Header Section with Gradient */}
+         
           <div className="bg-gradient-to-r from-red-500 to-rose-600 px-6 py-8 sm:px-8 sm:py-12 relative overflow-hidden">
             <div className="absolute inset-0 bg-white opacity-10">
               <div
@@ -52,7 +52,7 @@ export default async function DonorDetails({ params }) {
             </div>
 
             <div className="relative flex flex-col items-center text-center">
-              {/* Profile Photo */}
+            
               <div className="relative">
                 <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-white shadow-xl flex items-center justify-center ring-4 ring-white ring-opacity-50">
                   {donor.photoURL ? (
@@ -68,7 +68,7 @@ export default async function DonorDetails({ params }) {
                     <GoPerson size={48} className="text-red-500" />
                   )}
                 </div>
-                {/* Blood Type Badge */}
+        
                 <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
                   <div className="bg-white text-red-600 px-4 py-1.5 rounded-full text-sm font-bold shadow-lg flex items-center gap-1.5 border-2 border-red-100">
                     <MdBloodtype size={18} />
@@ -77,7 +77,6 @@ export default async function DonorDetails({ params }) {
                 </div>
               </div>
 
-              {/* Name */}
               <h1 className="text-3xl sm:text-4xl font-bold mt-8 text-white drop-shadow-md">
                 {donor.donorName}
               </h1>
@@ -87,7 +86,7 @@ export default async function DonorDetails({ params }) {
             </div>
           </div>
 
-          {/* Content Section */}
+     
           <div className="px-6 py-8 sm:px-8 sm:py-10">
             {/* Info Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
